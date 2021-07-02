@@ -11,7 +11,6 @@ services:
 
   # parsr API 
   parsr:
-    image: axarev/parsr
     build:
       context: .
       dockerfile: docker/parsr/Dockerfile

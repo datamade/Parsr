@@ -2,7 +2,9 @@ version: '3.3'
 
 services:
   parsr:
-    image: axarev/parsr
+    build:
+      context: .
+      dockerfile: docker/parsr/Dockerfile
     ports:
       - 3001:3001
     environment:
