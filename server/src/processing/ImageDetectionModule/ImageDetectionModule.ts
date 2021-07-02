@@ -129,7 +129,7 @@ export class ImageDetectionModule extends Module<Options> {
             }
             this.removeImage(doc, imagesToScan[index]);
             doc.pages[pageIndex].elements = doc.pages[pageIndex].elements.concat(resizedWords);
-            doc.pages[pageIndex].pageRotation = document.pages[pageIndex].pageRotation;
+            doc.pages[pageIndex].pageRotation = document.pages[0].pageRotation;
           }
           return this.scanImages(doc, imagesToScan, ocr, index + 1);
         })
