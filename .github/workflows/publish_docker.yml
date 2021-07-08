@@ -16,5 +16,5 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
-          repository: datamade/Parsr/parsr
+          repository: datamade/parsr/parsr
           tag_with_ref: true
