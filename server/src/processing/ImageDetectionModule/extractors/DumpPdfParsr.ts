@@ -61,6 +61,11 @@ export function getImageRefId(imageRefId: string, nodeData: string, data: string
       const xObjectId = getXObjectId(nodeData);
       if (xObjectId) {
         refId = getImageRefId(figuresId[index], getNode(xObjectId, data), data);
+      } else {
+        // Use the original regex to parse the entire data object.
+        // This is an escape hatch.
+        const figIdObject = data.match(new RegExp(regepx, 'g'))
+        refId = figIdObject[0].match(new RegExp(regepx))[1];
       }
     }
   });
