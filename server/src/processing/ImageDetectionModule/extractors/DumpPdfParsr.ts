@@ -62,15 +62,30 @@ export function getImageRefId(imageRefId: string, nodeData: string, data: string
       if (xObjectId) {
         refId = getImageRefId(figuresId[index], getNode(xObjectId, data), data);
       } else {
-        // Use the original regex to parse the entire data object.
-        // This is an escape hatch.
-        const figIdObject = data.match(new RegExp(regepx, 'g'))
-        refId = figIdObject[0].match(new RegExp(regepx))[1];
+	 refId = getImageRefId(figuresId[index], getChildNode(nodeData, data), data);
       }
     }
   });
   return refId;
 }
+
+
+export function getChildNode(nodeData: string, data: string): string {
+    const kidsRegepx = '<key>Kids</key>\r?\n<value><list size="1">\r?\n<ref id="(\\d+)" />\r?\n</list></value>';
+    const kids = nodeData.match(new RegExp(kidsRegepx, 's'));
+    if (kids != null) {
+	return getNode(kids[1], data)
+    }
+    else {
+	const resourcesRegepx = '<key>Resources</key>\r?\n<value><ref id="(\\d+)" /></value>';
+	const resources = nodeData.match(new RegExp(resourcesRegepx, 's'));
+	if (resources != null) {
+	    return getNode(resources[1], data)
+	}
+    }
+    return ''
+}
+
 
 export function getNode(id: string, data: string): string {
   const regepx = '<object id="' + id + '">(.*?)</object>';
